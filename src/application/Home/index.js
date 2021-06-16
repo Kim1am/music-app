@@ -7,12 +7,15 @@ function Home(props) {
 
   return (
     <div>
+      {/* 头部 */}
       <Top>
         <span className='iconfont menu'>&#xe65c;</span>
         <span className='title'>Web App</span>
         <span className='iconfont search'>&#xe62b;</span>
       </Top>
+      {/* 导航栏 */}
       <Tab>
+        {/* 路由按钮 */}
         <NavLink to='/recommend' activeClassName='selected'>
           <TabItem>
             <span> 推荐 </span>
@@ -29,6 +32,7 @@ function Home(props) {
           </TabItem>
         </NavLink>
       </Tab>
+      {/* 路由视图渲染 */}
       {renderRoutes(route.routes)}
     </div>
   )
