@@ -1,6 +1,7 @@
 import React, { forwardRef, useEffect, useRef, useState, useImperativeHandle } from 'react'
 // 组件的 props 上进行类型检查，你只需配置特定的 propTypes 属性
 import PropTypes from 'prop-types'
+
 import BScroll from 'better-scroll'
 import styled from 'styled-components'
 const ScrollContainer = styled.div`

@@ -2,8 +2,10 @@ import React, { useEffect } from 'react'
 import Slider from '../../components/slider'
 import RecommendList from '../../components/recommendList'
 import Scroll from '../../components/scroll'
+import { forceCheck } from 'react-lazyload'
 import { connect } from 'react-redux'
 import * as actionTypes from './store/actionCreators'
+import Loading from '../../baseUI/loading/index'
 import styled from 'styled-components'
 
 // 映射 Redux 全局的 state 到组件的 props 上
@@ -12,6 +14,7 @@ const mapStateToProps = state => ({
   // 不然每次 diff 比对 props 的时候都是不一样的引用，还是导致不必要的重渲染，属于滥用 immutable
   bannerList: state.getIn(['recommend', 'bannerList']), // recommend.bannerList
   recommendList: state.getIn(['recommend', 'recommendList']), // recommend.recommendList
+  enterLoading: state.getIn(['recommend', 'enterLoading']), // recommend.enterLoading
 })
 const mapDispatchToProps = dispatch => {
   return {
@@ -30,11 +33,15 @@ export const Content = styled.div`
   width: 100%;
 `
 function Recommend(props) {
-  const { bannerList, recommendList } = props
+  const { bannerList, recommendList, enterLoading } = props
   const { getBannerDataDispatch, getRecommendListDataDispatch } = props
   useEffect(() => {
-    getBannerDataDispatch()
-    getRecommendListDataDispatch()
+    if (!bannerList.size) {
+      getBannerDataDispatch()
+    }
+    if (!recommendList.size) {
+      getRecommendListDataDispatch()
+    }
   }, [])
 
   const bannerListJS = bannerList ? bannerList.toJS() : []
@@ -42,7 +49,8 @@ function Recommend(props) {
 
   return (
     <Content>
-      <Scroll className='list'>
+      {enterLoading ? <Loading></Loading> : null}
+      <Scroll className='list' onScroll={forceCheck}>
         <div className='before'>
           <Slider bannerList={bannerListJS}></Slider>
           <RecommendList recommendList={recommendListJS}></RecommendList>

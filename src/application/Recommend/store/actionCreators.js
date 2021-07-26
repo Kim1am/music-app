@@ -27,6 +27,10 @@ export const getRecommendList = () => {
         type: actionTypes.CHANGE_RECOMMEND_LIST,
         data: fromJS(data.result),
       })
+      dispatch({
+        type: actionTypes.CHANGE_ENTER_LOADING,
+        data: false,
+      })
     } catch (e) {
       console.log('推荐歌单数据获取失败')
     }
