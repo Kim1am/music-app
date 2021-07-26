@@ -6,7 +6,7 @@ import Swiper from 'swiper'
 function Slider(props) {
   const [sliderSwiper, setSliderSwiper] = useState(null)
   const { bannerList } = props
-
+  console.log(props)
   /*  副作用执行函数
    * fn() 执行函数
    * array[] 依赖项数组----“如果想执行只运行一次的 effect（仅在组件挂载和卸载时执行），可以传递一个空数组（[]）作为第二个参数。这就告诉 React 你的 effect 不依赖于 props 或 state 中的任何值，所以它永远都不需要重复执行。”
